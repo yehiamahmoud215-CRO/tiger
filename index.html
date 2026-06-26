@@ -118,15 +118,17 @@ window.OUD_CONFIG = {
   .sec-deco i.r{background:linear-gradient(270deg,transparent,var(--gold))}
   .sec-deco b{width:8px;height:8px;transform:rotate(45deg);background:var(--gold);display:block}
   .sec-title p{color:var(--muted);font-weight:600;margin-top:8px}
-  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-  .proof{overflow:hidden;border-radius:18px}
-  .proof .ph{position:relative;aspect-ratio:4/3;overflow:hidden}
-  .proof .ph img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
-  .proof:hover .ph img{transform:scale(1.06)}
-  .proof .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(19,11,6,.8),transparent)}
-  .proof .bd{padding:18px}
-  .proof h3{color:var(--gold-light);font-size:16px;font-weight:900}
-  .proof p{font-size:14px;color:var(--muted);font-weight:600;margin-top:6px}
+  /* ===== صور الإثبات — عمود واحد دايماً ===== */
+  .grid4{display:grid;grid-template-columns:1fr;gap:22px}
+  .proof{overflow:hidden;border-radius:20px;transition:transform .3s var(--ease),box-shadow .3s;cursor:default;width:100%}
+  .proof:hover{transform:translateY(-4px);box-shadow:0 20px 60px -16px rgba(212,162,78,.35)}
+  .proof .ph{position:relative;overflow:hidden;border-radius:20px 20px 0 0;width:100%}
+  .proof .ph img{width:100%;height:auto;display:block;object-fit:contain;transition:transform .8s var(--ease)}
+  .proof:hover .ph img{transform:scale(1.03)}
+  .proof .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(10,6,2,.6) 0%,transparent 40%);pointer-events:none}
+  .proof .bd{padding:18px 20px 22px;background:linear-gradient(180deg,#1d1109,#160d07);border-top:1px solid rgba(212,162,78,.18)}
+  .proof h3{color:var(--gold-light);font-size:17px;font-weight:900;margin-bottom:7px}
+  .proof p{font-size:14px;color:var(--muted);font-weight:600;line-height:1.6}
   .video-box{max-width:430px;margin:0 auto;border-radius:22px;overflow:hidden;border:1px solid rgba(212,162,78,.25);position:relative;background:#000;box-shadow:0 24px 70px -24px rgba(0,0,0,.9)}
   .video-box video{width:100%;display:block;aspect-ratio:9/16;object-fit:cover}
   .video-ph{aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;background-size:cover;background-position:center;position:relative;cursor:pointer}
@@ -140,7 +142,6 @@ window.OUD_CONFIG = {
   .rvid .logo-cover{background:radial-gradient(circle at center,rgba(212,162,78,.18),rgba(8,4,2,.92));}
   .rvid .mini-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:3;width:54px;height:54px;border-radius:50%;background:rgba(212,162,78,.92);display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--ink)}
   .rvid .nm{position:absolute;bottom:12px;right:12px;z-index:3;font-weight:800;font-size:14px;color:#fff}
-  .rvid
   .review{padding:24px;position:relative}
   .review .stars{color:var(--gold);letter-spacing:2px;margin-bottom:10px}
   .review blockquote{font-size:15px;color:#dccbb1;font-weight:500}
@@ -199,16 +200,15 @@ window.OUD_CONFIG = {
   @media(max-width:880px){
     .hero h1{font-size:34px}.hero p.lead{font-size:16px;margin:0 auto}
     .price-row,.trust-row{justify-content:center}
-    .grid4{grid-template-columns:1fr 1fr}
     .sec-title h2{font-size:27px}
     .brand .nm{font-size:15px}
   }
   @media(max-width:520px){
-    .grid4,
     .hero h1{font-size:29px}
   }
   .slider-wrap{position:relative;overflow:hidden}
-  .slider-track{display:flex;transition:transform .45s cubic-bezier(0.23,1,0.32,1);will-change:transform}
+  .slider-track{display:flex;transition:transform .45s cubic-bezier(0.23,1,0.32,1);will-change:transform;touch-action:pan-y;cursor:grab}
+  .slider-track.dragging{transition:none;cursor:grabbing}
   .slider-item{flex:none;width:100%}
   .vslider-item{flex:none;width:calc(100%/3);padding:0 9px}
   @media(max-width:768px){.vslider-item{width:calc(100%/1.3)}}
@@ -220,7 +220,6 @@ window.OUD_CONFIG = {
   .slider-dot.active{background:var(--gold);transform:scale(1.3)}
   #reviewSlider .slider-item{width:50%;padding:0 9px}
   @media(max-width:600px){#reviewSlider .slider-item{width:85%}}
-  @media(max-width:520px){}
   .proof-label{font-size:11px;font-weight:900;color:var(--gold);letter-spacing:.1em;margin-bottom:6px}
   .detail-play-btn{
     width:78px;height:78px;border-radius:50%;
@@ -312,6 +311,44 @@ window.OUD_CONFIG = {
   .guarantee-title{font-size:17px;font-weight:900;color:var(--gold-light);margin-bottom:6px}
   .guarantee-body{font-size:14px;color:var(--muted);line-height:1.6;font-weight:600}
   .guarantee-body b.gold{color:var(--gold-light)}
+
+  /* ===== الهيرو CRO (نصّي) ===== */
+  .hero-content{display:flex;flex-direction:column;align-items:center}
+  .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:900;letter-spacing:.03em;color:var(--gold);background:rgba(212,162,78,.1);border:1px solid rgba(212,162,78,.3);padding:6px 15px;border-radius:999px;margin-bottom:14px}
+  .hero-rating{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:12px;font-size:13px;font-weight:700;flex-wrap:wrap}
+  .hero-rating .stars{color:#f5c518;font-size:15px;letter-spacing:1px}
+  .hero-rating .rt{color:var(--gold-light);font-weight:900}
+  .hero-rating .ct{color:var(--muted)}
+
+  .hero h1{font-size:44px;font-weight:900;margin:0 0 14px;line-height:1.2}
+  @media(max-width:880px){.hero h1{font-size:34px}}
+  @media(max-width:420px){.hero h1{font-size:28px}}
+  .hero h1 .sub-line{display:block;font-size:.42em;font-weight:800;color:var(--cream);margin-top:12px;line-height:1.55}
+
+  .hero-pain{background:rgba(192,57,43,.08);border:1px solid rgba(192,57,43,.28);border-radius:14px;padding:13px 18px;margin:0 auto 16px;max-width:580px;font-size:15px;color:var(--muted);font-weight:600;line-height:1.7}
+  .hero-pain b{color:#e8a796}
+  .hero-promise{font-size:17px;color:var(--cream);font-weight:600;line-height:1.8;margin:0 auto 20px;max-width:580px}
+  .hero-promise b{color:var(--gold-light);font-weight:900}
+
+  .hero-usps{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-bottom:22px}
+  .hero-usp{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:800;color:var(--cream);background:linear-gradient(180deg,#1d1109,#160d07);border:1px solid rgba(212,162,78,.2);padding:9px 14px;border-radius:12px}
+  .hero-usp b{color:var(--gold-light)}
+
+  .hero-price{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+  .hero-price .now{font-family:'Cairo';font-size:42px;font-weight:900;color:var(--gold-light);line-height:1}
+  .hero-price .now small{font-size:17px;margin-inline-start:4px;font-weight:800}
+  .hero-price .old{font-size:18px;text-decoration:line-through;color:#806a4f;font-weight:700}
+  .hero-price .save{background:var(--red);color:#fff;font-size:12px;font-weight:900;padding:5px 12px;border-radius:999px}
+  .hero-price-note{display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;color:var(--muted2);font-weight:700;margin-bottom:18px}
+
+  .hero-cta{min-height:62px;padding:0 32px;font-size:20px;width:100%;max-width:440px;margin:0 auto 16px}
+
+  .hero-trust{display:flex;flex-wrap:wrap;gap:16px;justify-content:center}
+  .hero-trust .t{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:800;color:var(--muted)}
+  .hero-trust .t b{color:var(--gold-light)}
+
+  .hero-live{display:inline-flex;align-items:center;justify-content:center;gap:7px;margin-top:16px;font-size:13px;font-weight:800;color:var(--cream)}
+  .hero-live #heroSoldCount{color:#2ecc71;font-weight:900}
 </style>
 </head>
 <body>
@@ -320,6 +357,7 @@ window.OUD_CONFIG = {
 <div class="marquee">
   <div class="marquee-track" id="marquee">
     <span>🛡️ ضمان ذهبي — ما ناسبك نرجّع مبلغك كامل</span>
+    <span>💰 الدفع عند الاستلام متوفر</span>
     <span>🚚 شحن مجاني من 199 ريال فأعلى</span>
     <span>✨ عود طبيعي محسّن — كسرة واحدة تكفي المجلس</span>
   </div>
@@ -338,27 +376,48 @@ window.OUD_CONFIG = {
 
 <!-- الهيرو -->
 <section class="ember noise" style="padding:0">
-  <div class="container hero" style="padding:38px 0 50px;max-width:780px;margin:0 auto;text-align:center">
-    <div>
-      <span class="badge">★ الأكثر مبيعاً وتكرار شراء</span>
-      <h1>عود تايقر <span class="gold-text">يصمل على الجمر</span> ويملي المجلس</h1>
-      <p class="lead" style="margin:0 auto">جربت عود وخذلك؟ راحت ريحته بعد شوي، أو أكلته النار بسرعة وما حسّيت بقيمته. <b class="gold">عود التايقر الفيتنامي الملكي</b> — زبد عالي يصمل على الجمر، وريحة بخورية فاخرة تملأ المجلس وتبقى.</p>
-      <div class="price-row">
-        <span class="price-now" id="heroPrice">95</span>
-        <span class="gold" style="font-size:18px;font-weight:800;margin-bottom:6px">ر.س</span>
-        <span class="price-old" id="heroOld">215 ر.س</span>
-        <span class="save-tag" id="heroSave">وفّر 120 ر.س</span>
+  <div class="container hero" style="padding:40px 0 52px;max-width:760px;margin:0 auto;text-align:center">
+    <div class="hero-content">
+      <span class="hero-eyebrow">✦ عود تايقر فيتنامي ملكي VIP • طبيعي محسّن درجة أولى</span>
+
+      <div class="hero-rating">
+        <span class="stars">★★★★★</span>
+        <span class="rt">4.9</span>
+        <span class="ct">(33 تقييم موثّق من سلة)</span>
       </div>
-      <button class="btn-gold cta-pulse" style="min-height:60px;padding:0 36px;font-size:20px;width:100%;max-width:420px;margin:0 auto" onclick="openDrawer()">اطلب الآن — اكتشفه بنفسك ←</button>
-      <!-- تقييمات + عداد فوق الأسعار -->
-      <div class="hero-social-proof">
-        <span class="hsp-stars">★★★★★</span>
-        <span class="hsp-count">4.9 (33 تقييم موثّق)</span>
-        <span class="hsp-sep">•</span>
-        <span class="hsp-sold"><span class="sold-dot" style="width:7px;height:7px"></span> <span id="heroSoldCount">0</span> طلب آخر ساعة</span>
+
+      <h1>عود التايقر الفيتنامي الملكي
+        <span class="sub-line">حضور بخوري فاخر من أول تبخيرة، وثبات يبان على الملابس لأيام</span>
+      </h1>
+
+      <p class="hero-pain">جربت عود وخذلك؟ <b>راحت ريحته بعد شوي</b>، أو حسّيت رائحته كأنه خشب، وأكلته النار بسرعة وما حسّيت بقيمته.</p>
+
+      <p class="hero-promise"><b class="gold">عود التايقر الفيتنامي الملكي</b> يقدّم لك زبد عالي يصمل على الجمر، ونفحة بخورية فاخرة تملأ المجلس وتترك أثرها.</p>
+
+      <div class="hero-usps">
+        <span class="hero-usp">✓ <b>يثبت أيام</b> على الملابس</span>
+        <span class="hero-usp">✓ <b>زبد عالٍ</b> يصمل على الجمر</span>
+        <span class="hero-usp">✓ <b>كسرة واحدة</b> تكفي المجلس</span>
       </div>
-      <div class="trust-row">
-        <span>🛡️ ضمان ذهبي — حقك محفوظ أو استرجاع كامل</span><span>🚚 شحن مجاني من 199 ريال</span>
+
+      <div class="hero-price">
+        <span class="now"><span id="heroPrice">95</span><small>ر.س</small></span>
+        <span class="old" id="heroOld">215 ر.س</span>
+        <span class="save" id="heroSave">وفّر 120 ر.س</span>
+      </div>
+      <div class="hero-price-note">⏱️ السعر يبدأ من أوقية للتجربة • شحن مجاني من 199 ر.س</div>
+
+      <button class="btn-gold cta-pulse hero-cta" onclick="openDrawer()">اطلب الآن — جرّبه بضمان كامل ←</button>
+
+      <div class="hero-trust">
+        <span class="t">🛡️ <b>ضمان 14 يوم</b> أو استرجاع كامل</span>
+        <span class="t">💰 <b>الدفع عند الاستلام</b></span>
+        <span class="t">🚚 <b>شحن مجاني</b> من 199 ر.س</span>
+      </div>
+
+      <div class="hero-live">
+        <span class="sold-dot" style="width:8px;height:8px"></span>
+        <span><span id="heroSoldCount">0</span> شخص طلبوه خلال آخر ساعة</span>
       </div>
     </div>
   </div>
@@ -451,8 +510,6 @@ window.OUD_CONFIG = {
     </div>
   </div>
 </section>
-  </div>
-</section>
 
 <!-- ضمانات وسياسات موحّدة -->
 <section class="ember noise" style="padding:48px 0">
@@ -470,6 +527,7 @@ window.OUD_CONFIG = {
       <div class="qf-item">✅ <span><b>رائحة بخورية فاخرة</b> — تراثية هادية تملأ المكان وتبقى</span></div>
       <div class="qf-item">✅ <span><b>انتشار قوي سريع</b> — دخانة كثيفة تعطي المجلس طابع فخم</span></div>
       <div class="qf-item">✅ <span><b>تغليف فاخر جاهز للإهداء</b> — واجهة تبيّض الوجه في أي مناسبة</span></div>
+      <div class="qf-item">✅ <span><b>الدفع عند الاستلام</b> — تدفع وانت مستلم المنتج بين يديك</span></div>
       <div class="qf-item">✅ <span><b>ضمان ذهبي 14 يوم</b> — ما ناسبك نرجّع لك مبلغك كامل</span></div>
     </div>
 
@@ -490,6 +548,11 @@ window.OUD_CONFIG = {
         <div class="pp-body">1-4 أيام عمل، تتبّع لحظي عبر رسائل. مجاني من 199 ريال.</div>
       </div>
       <div class="policy-pill">
+        <div class="pp-icon">💰</div>
+        <div class="pp-title">الدفع عند الاستلام</div>
+        <div class="pp-body">تقدر تدفع كاش وقت توصيل الطلب لباب البيت — بدون أي دفع مسبق.</div>
+      </div>
+      <div class="policy-pill">
         <div class="pp-icon">↩️</div>
         <div class="pp-title">الاسترجاع</div>
         <div class="pp-body">14 يوم — استرجاع كامل بدون شرط. تواصل معنا وخليني اشوف لك.</div>
@@ -498,11 +561,6 @@ window.OUD_CONFIG = {
         <div class="pp-icon">🔥</div>
         <div class="pp-title">الاستخدام</div>
         <div class="pp-body">كسرة صغيرة على جمر خفيف، بدون لهب. تدوم 2-4 ساعات الكسرة الواحدة.</div>
-      </div>
-      <div class="policy-pill">
-        <div class="pp-icon">🏷️</div>
-        <div class="pp-title">الضمان</div>
-        <div class="pp-body">منتج طبيعي 100% — لو حسيت بأي مشكلة، نستبدل أو نسترجع فوراً.</div>
       </div>
     </div>
 
@@ -522,13 +580,11 @@ window.OUD_CONFIG = {
       <p>ما في كلام — شوف ردة فعلهم بنفسك.</p>
     </div>
     <div class="slider-wrap fade-up" style="margin-bottom:20px">
- style="margin-bottom:46px">
       <div class="slider-track" id="videoSlider"></div>
       <div class="slider-nav">
         <button class="slider-btn" onclick="slideVideos(-1)" aria-label="السابق">‹</button>
         <div class="slider-dots" id="videoDots"></div>
         <button class="slider-btn" onclick="slideVideos(1)" aria-label="التالي">›</button>
-      
       </div>
     </div>
     <div style="text-align:center;margin-top:24px">
@@ -542,7 +598,7 @@ window.OUD_CONFIG = {
   <div class="container">
     <div class="brand"><img src="" id="logoFooter" style="width:48px;height:48px;object-fit:contain" alt=""><div><div class="nm" style="font-size:19px">ذوق <span class="gold-text">الصفوة</span> للعود</div><div class="tg">PREMIUM OUD</div></div></div>
     <p style="margin-top:14px;color:var(--muted2);font-weight:600;font-size:14px">عود التايقر — طبيعي محسّن درجة أولى</p>
-    <div class="dots"><span>شحن مجاني من 199 ريال فأعلى</span><b></b><span>دفع آمن عبر سلة</span><b></b><span>ضمان ذهبي</span></div>
+    <div class="dots"><span>شحن مجاني من 199 ريال فأعلى</span><b></b><span>الدفع عند الاستلام</span><b></b><span>دفع آمن عبر سلة</span><b></b><span>ضمان ذهبي</span></div>
     <p class="cp">© <span id="year"></span> ذوق الصفوة. جميع الحقوق محفوظة.</p>
   </div>
 </footer>
@@ -566,7 +622,7 @@ window.OUD_CONFIG = {
 
     <!-- شريط الضمان والشحن -->
     <div class="drawer-guarantee-bar">
-      🚚 شحن مجاني &nbsp;•&nbsp; 🛡️ ضمان ذهبي 14 يوم ضد أي عيب &nbsp;•&nbsp; 💳 دفع آمن
+      💰 الدفع عند الاستلام &nbsp;•&nbsp; 🚚 شحن مجاني &nbsp;•&nbsp; 🛡️ ضمان ذهبي 14 يوم ضد أي عيب
     </div>
 
     <!-- تقييمات + عداد المبيعات -->
@@ -604,7 +660,7 @@ window.OUD_CONFIG = {
     <div id="qtyList"></div>
 
     <div class="checkout-zone">
-      <div class="checkout-trust" style="font-size:13px;color:var(--gold-light)">اضغط على الكمية المناسبة وسيتم توجيهك مباشرة لرابط الشراء الآمن عبر سلة</div>
+      <div class="checkout-trust" style="font-size:13px;color:var(--gold-light)">اضغط على الكمية المناسبة وسيتم توجيهك مباشرة لرابط الشراء الآمن عبر سلة — يتوفر الدفع عند الاستلام</div>
     </div>
   </div>
 </div>
@@ -651,10 +707,9 @@ window.OUD_CONFIG = {
   var vd=document.getElementById("videoDots");
   var vTotal=C.reviewVideos.length, vCur=0;
 
-  function getVStep(){return window.innerWidth<768?1:1;}
+  function getVStep(){return 1;}
   function buildVDots(){
     vd.innerHTML="";
-    var pages=Math.ceil(vTotal/1);
     for(var i=0;i<vTotal;i++){
       var d=document.createElement("span");d.className="slider-dot"+(i===0?" active":"");
       (function(idx){d.onclick=function(){vCur=idx;updateVSlider();};})(i);
@@ -662,7 +717,8 @@ window.OUD_CONFIG = {
     }
   }
   function updateVSlider(){
-    var itemW = vs.querySelector(".vslider-item").getBoundingClientRect().width;
+    var fi = vs.querySelector(".vslider-item");
+    var itemW = fi ? fi.getBoundingClientRect().width : 0;
     vs.style.transform="translateX("+((document.documentElement.dir==="rtl"?1:-1)*vCur*itemW)+"px)";
     vs.querySelectorAll(".vslider-item").forEach(function(el,i){
       var diff=Math.abs(i-vCur);
@@ -708,6 +764,61 @@ window.OUD_CONFIG = {
   };
   buildRDots(); setTimeout(updateRSlider,100);
   window.addEventListener("resize",function(){buildRDots();buildVDots();updateRSlider();updateVSlider();});
+
+  /* ===== سحب باللمس/الماوس للسلايدرات ===== */
+  function enableDrag(trackEl, getCur, setCur, getMax, onUpdate){
+    var startX=0, currentX=0, dragging=false, startTranslate=0, itemW=0;
+
+    function getItemWidth(){
+      var fi = trackEl.querySelector(".slider-item, .vslider-item");
+      return fi ? fi.getBoundingClientRect().width : trackEl.offsetWidth;
+    }
+    function getDir(){ return document.documentElement.dir==="rtl" ? 1 : -1; }
+
+    function start(x){
+      dragging=true; startX=x; itemW=getItemWidth();
+      trackEl.classList.add("dragging");
+      startTranslate = getDir()*getCur()*itemW;
+    }
+    function move(x){
+      if(!dragging) return;
+      currentX = x - startX;
+      trackEl.style.transform = "translateX("+(startTranslate + currentX)+"px)";
+    }
+    function end(){
+      if(!dragging) return;
+      dragging=false;
+      trackEl.classList.remove("dragging");
+      var dir = getDir();
+      var deltaItems = -(currentX*dir)/itemW;
+      var newCur = getCur() + Math.round(deltaItems);
+      newCur = Math.max(0, Math.min(getMax(), newCur));
+      setCur(newCur);
+      currentX = 0;
+      onUpdate();
+    }
+
+    trackEl.addEventListener("touchstart", function(e){ start(e.touches[0].clientX); }, {passive:true});
+    trackEl.addEventListener("touchmove", function(e){ move(e.touches[0].clientX); }, {passive:true});
+    trackEl.addEventListener("touchend", end);
+
+    trackEl.addEventListener("mousedown", function(e){ start(e.clientX); e.preventDefault(); });
+    window.addEventListener("mousemove", function(e){ if(dragging) move(e.clientX); });
+    window.addEventListener("mouseup", end);
+  }
+
+  enableDrag(vs,
+    function(){return vCur;},
+    function(v){vCur=v;},
+    function(){return vTotal-1;},
+    updateVSlider
+  );
+  enableDrag(rs,
+    function(){return rCur;},
+    function(v){rCur=v;},
+    function(){return rTotal-getRStep();},
+    updateRSlider
+  );
 
   
   window.OUD_selected = C.bundles.findIndex(function(b){return b.popular}) ;
@@ -919,8 +1030,6 @@ window.OUD_CONFIG = {
     es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target);} });
   },{threshold:.12,rootMargin:"0px 0px -40px 0px"});
   document.querySelectorAll(".fade-up").forEach(function(el){io.observe(el);});
-
-;
 
   
   document.querySelectorAll(".faq-q").forEach(function(q){
